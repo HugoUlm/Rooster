@@ -15,44 +15,56 @@ struct StartView: View {
                 GifImage()
 
                 VStack {
-                    ScreenText()
+                    HStack {
+                        Image("Icon")
+                            .offset(x: -95, y: 15)
+                            .scaleEffect(CGSize(width: 0.8, height: 0.8))
+                        Text("Rooster")
+                            .font(.system(size: 35, weight: .bold))
+                            .foregroundColor(.white)
+                            .offset(x: -150, y: 0)
+                    }
                     
                     HStack {
-                        Button(action: {
-                            self.showSignUp.toggle()
-                        }, label: {
-                            Text("Sign Up")
-                                .frame(width: 150, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                .font(.system(size: 20))
-                                .foregroundColor(.black)
-                                .padding()
-                                .background(Color(UIColor.white))
-
-                        })
-                        .cornerRadius(30)
-                        .sheet(isPresented: $showSignUp, content: {
-                            SignUpView()
-                        })
-                        
-
-                        
+                        Text("Shoe fashion for you")
+                            .font(.system(size: 30, weight: .semibold))
+                            .foregroundColor(.white)
+                            .offset(x: -30, y: -80)
+                    }
+                    
+                    ScreenText()
+                    
+                    VStack {
                         Button(action: {
                             goHome()
                         }, label: {
                             Text("Sign In")
-                                .frame(width: 150, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                .font(.system(size: 20))
+                                .frame(width: 330, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .font(.system(size: 25))
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)))
                         })
-                        .cornerRadius(30)
+                        .cornerRadius(10)
+                        
+                        Button(action: {
+                            self.showSignUp.toggle()
+                        }, label: {
+                            Text("Sign Up")
+                                .frame(width: 330, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                
+                                .font(.system(size: 25))
+                                .foregroundColor(.black)
+                                .padding()
+                                .background(Color(UIColor.white))
+                        })
+                        .cornerRadius(10)
+                        .sheet(isPresented: $showSignUp, content: {
+                            SignUpView()
+                        })
                 }
                     .frame(width: 300, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                    .offset(x: 0, y: -30)
-                    
-
-                    
+                    .offset(x: 0, y: -70)
             }
         }
     }
@@ -80,11 +92,11 @@ struct GifImage: View{
 struct ScreenText: View{
     var body: some View{
         GeometryReader { geometry in
-            Text("Join our community to take part of our extrodinary products.")
+            Text("Log in for a journey through our world.")
                 .foregroundColor(.white)
                 .font(.system(size: 35, weight: .semibold))
-                .frame(width: geometry.size.width - 100, height: geometry.size.height, alignment: .bottom)
-                .offset(x: 0, y: -60.0)
+                .frame(width: geometry.size.width - 50, height: geometry.size.height, alignment: .bottom)
+                .offset(x: 0, y: -130.0)
         }
     }
 }
