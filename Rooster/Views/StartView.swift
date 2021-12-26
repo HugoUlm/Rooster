@@ -58,7 +58,7 @@ struct StartView: View {
                         })
                         .border(Color.black, width: 2)
                         .sheet(isPresented: $showSignUp, content: {
-                            SignUpView()
+                            SignUpView(customer: CustomerModel.init( dateOfBirth: Date()))
                         })
                 }
                     .frame(width: 300, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
