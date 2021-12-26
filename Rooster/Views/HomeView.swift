@@ -28,22 +28,27 @@ struct HomeView: View {
                             .frame(width: 190, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .topLeading)
                             .offset(x: -70, y: -220)
                         Text("BROWSE OUR COLLECTION")
+                            .frame(width: 250, height: 20, alignment: .topLeading)
+                            .padding()
+                            .background(Color(UIColor.black))
                             .foregroundColor(.white)
                             .font(.system(size: 18, weight: .semibold))
-                            .frame(width: 250, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .topLeading)
-                            .offset(x: -40, y: 220)
+                            .offset(x: -30, y: 170)
+                        Rectangle()
+                            .frame(width: 90, height: 20, alignment: .center)
+                            .padding()
+                            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 2)
+                            .offset(x: -105, y: 235)
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                             Text("Shop")
                                 .frame(width: 90, height: 20, alignment: .center)
                                 .padding()
                                 .background(Color(UIColor.black))
                                 .foregroundColor(.white)
-                                
                         })
-                        .cornerRadius(30)
                         .offset(x: -110, y: 230)
                     }
-                    
+
                     ZStack {
                         Image("vans")
                             .resizable()
@@ -55,25 +60,26 @@ struct HomeView: View {
                             .frame(width: 190, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .topLeading)
                             .offset(x: -70, y: -220)
                         Text("SEE NEW RELEASES")
+                            .frame(width: 175, height: 20, alignment: .topLeading)
+                            .padding()
+                            .background(Color(UIColor.black))
                             .foregroundColor(.white)
                             .font(.system(size: 18, weight: .semibold))
-                            .frame(width: 190, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .topLeading)
-                            .offset(x: -70, y: 220)
+                            .offset(x: -65, y: 170)
+                        Rectangle()
+                            .frame(width: 90, height: 20, alignment: .center)
+                            .padding()
+                            .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 2)
+                            .offset(x: -105, y: 235)
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                             Text("View")
                                 .frame(width: 90, height: 20, alignment: .center)
                                 .padding()
                                 .background(Color(UIColor.black))
                                 .foregroundColor(.white)
-                                
                         })
-                        .cornerRadius(30)
                         .offset(x: -110, y: 230)
-                    }
-                    
-
-
-                    
+                    }  
                 }
                 .navigationTitle("Discover")
             }
