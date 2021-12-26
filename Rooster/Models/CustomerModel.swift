@@ -8,13 +8,13 @@
 import Foundation
 
 
-struct Customer : Identifiable {
+struct CustomerModel {
     var id = UUID()
-    var email: String
-    var firstName: String
-    var lastName: String
-    var passwordHash: String
-    var country: String
-    var gender: String
-    var dateOfBirth: String
+    var email: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var passwordHash: String = ""
+    var country: String = ""
+    var gender: String = ""
+    var dateOfBirth: Date
 }
