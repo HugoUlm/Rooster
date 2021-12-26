@@ -45,20 +45,18 @@ struct StartView: View {
                                 .padding()
                                 .background(Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)))
                         })
-                        .cornerRadius(10)
                         
                         Button(action: {
                             self.showSignUp.toggle()
                         }, label: {
                             Text("Sign Up")
                                 .frame(width: 330, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                
                                 .font(.system(size: 25))
                                 .foregroundColor(.black)
                                 .padding()
                                 .background(Color(UIColor.white))
                         })
-                        .cornerRadius(10)
+                        .border(Color.black, width: 2)
                         .sheet(isPresented: $showSignUp, content: {
                             SignUpView()
                         })
