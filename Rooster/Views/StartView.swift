@@ -40,7 +40,8 @@ struct StartView: View {
                         }, label: {
                             Text("Sign In")
                                 .frame(width: 330, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                .font(.system(size: 25))
+                                .font(.system(size: 26))
+                                .multilineTextAlignment(.center)
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)))
@@ -49,9 +50,10 @@ struct StartView: View {
                         Button(action: {
                             self.showSignUp.toggle()
                         }, label: {
-                            Text("Sign Up")
+                            Text("  Sign Up")
                                 .frame(width: 330, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 .font(.system(size: 25))
+                                .multilineTextAlignment(.center)
                                 .foregroundColor(.black)
                                 .padding()
                                 .background(Color(UIColor.white))
@@ -80,8 +82,9 @@ struct GifImage: View{
             GeometryReader {geometry in
             ZStack {
                 StartAnimatedBgView(fileName: "giphy")
-                    .aspectRatio(geometry.size, contentMode: .fill)
+                    .aspectRatio(1, contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
+                    .offset(x: -150, y: 0)
             }
         }
     }
