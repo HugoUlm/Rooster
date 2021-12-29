@@ -60,7 +60,7 @@ struct StartView: View {
                         })
                         .border(Color.black, width: 2)
                         .sheet(isPresented: $showSignUp, content: {
-                            SignUpView(customer: CustomerModel.init( dateOfBirth: Date()))
+                            SignUpView(customer: CustomerModel.init(id: "", email: "", firstName: "", lastName: "", passwordHash: "", country: "", gender: "", dateOfBirth: Date()))
                         })
                 }
                     .frame(width: 300, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -104,7 +104,7 @@ struct ScreenText: View{
 
 func goHome() {
     if let window = UIApplication.shared.windows.first {
-        window.rootViewController = UIHostingController(rootView: ContentView())
+        window.rootViewController = UIHostingController(rootView: SignInView(user: CustomerModel.init(id: "", email: "", firstName: "", lastName: "", passwordHash: "", country: "", gender: "", dateOfBirth: Date())))
         window.makeKeyAndVisible()
     }
 }
