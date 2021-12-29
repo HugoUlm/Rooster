@@ -18,10 +18,7 @@ struct SignUpView: View {
     var placeholderCountry = "Country"
     @State var checked = false
     
-    let genders = [
-        "Male",
-        "Female"
-    ]
+    @ObservedObject var viewModel = SignUpViewModel()
     
     var body: some View {
             NavigationView {
@@ -40,7 +37,7 @@ struct SignUpView: View {
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
                                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                 .background(Color(UIColor.white))
-                                .offset(x: 0, y: 20)
+                                .offset(x: 0, y: 10)
                             // Input for first name
                             TextField("First name", text: $customer.firstName)
                                 .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -48,7 +45,7 @@ struct SignUpView: View {
                                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                 .background(Color(UIColor.white))
                                 .disableAutocorrection(true)
-                                .offset(x: 0, y: 40)
+                                .offset(x: 0, y: 20)
                             // Input for last name
                             TextField("Last name", text: $customer.lastName)
                                 .frame(width: 350, height: 50, alignment: .center)
@@ -56,12 +53,13 @@ struct SignUpView: View {
                                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                 .background(Color(UIColor.white))
                                 .disableAutocorrection(true)
-                                .offset(x: 0, y: 60)
+                                .offset(x: 0, y: 30)
                             // Dropdown for gender
                             Menu {
-                                ForEach(genders, id: \.self) { gender in
+                                ForEach(viewModel.genders, id: \.self) { gender in
                                     Button(gender) {
                                         self.valueGender = gender
+                                        customer.gender = gender
                                     }
                                 }
                             }
@@ -84,12 +82,13 @@ struct SignUpView: View {
                             }
                                 .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                             }
-                            .offset(x: 0, y: 80)
+                            .offset(x: 0, y: 40)
                             // Dropdown for country
                             Menu {
-                                ForEach(CountryModel.names, id: \.self) { country in
+                                ForEach(viewModel.countries, id: \.self) { country in
                                     Button(country) {
                                         self.valueCountry = country
+                                        customer.country = country
                                     }
                                 }
                             }
@@ -111,14 +110,14 @@ struct SignUpView: View {
                                 }
                                 .frame(width: 350, height: 50, alignment: .center)
                             }
-                            .offset(x: 0, y: 100)
+                            .offset(x: 0, y: 50)
                             // Input for Date of Birth
                             DatePicker("Date of Birth", selection: $customer.dateOfBirth, displayedComponents: [.date])
                                 .frame(width: 317, height: 25, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 .foregroundColor(Color(UIColor.lightGray))
                                 .padding()
                                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                                .offset(x: 0, y: 120)
+                                .offset(x: 0, y: 60)
                             
                             // Checkbox for terms and conditions
                             Toggle(isOn: $checked) {
@@ -128,24 +127,34 @@ struct SignUpView: View {
                             }
                             .toggleStyle(CheckboxToggleStyle())
                             .font(.system(size: 24))
-                            .offset(x: 0, y: 140)
+                            .offset(x: 0, y: 70)
                             
                             // Submit button
                             VStack {
                                 Button(action: {
                                     
+                                    // Check if none of models props are null
+                                    if modelStateIsValid {
+                                        if customer.passwordHash.count < 6 {
+                                            return
+                                        }
+                                        else {
+                                            viewModel.addCustomer(customer: customer)
+                                            goHome()
+                                        }
+                                    }
                                 }, label: {
                                     Text("Register")
                                         .frame(width: 310, height: 30)
                                         .font(.system(size: 26))
                                         .multilineTextAlignment(.center)
                                 })
-                                .disabled(!modelStateisValid)
+                                .disabled(!modelStateIsValid)
                                 .foregroundColor(.white)
                                 .padding()
                                 .background(buttonColorBackGround)
                             }
-                            .offset(x: 0, y: 160)
+                            .offset(x: 0, y: 80)
                         }
 
 
@@ -177,23 +186,23 @@ struct SignUpView: View {
             }
         }
     }
-    var modelStateisValid: Bool {
+    // Checks if customer props are not null
+    var modelStateIsValid: Bool {
         return !customer.email.isEmpty && !customer.firstName.isEmpty && !customer.lastName.isEmpty && !customer.passwordHash.isEmpty && !customer.gender.isEmpty && !customer.country.isEmpty
     }
-    
+    // Changes color of button background depending on modelStateIsValid
     var buttonColorBackGround: Color {
-        return modelStateisValid ? Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)) : Color(UIColor.lightGray)
+        return modelStateIsValid ? Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)) : Color(UIColor.lightGray)
     }
-    
+    // Changes color of button text depending on modelStateIsValid
     var buttonColorForeGround: Color {
-        return modelStateisValid ? Color.white : Color.black
+        return modelStateIsValid ? Color.white : Color.black
     }
 }
 
-
 struct SignUpView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView(customer: CustomerModel.init(id: UUID(), email: "", firstName: "", lastName: "", passwordHash: "", country: "", gender: "", dateOfBirth: Date()))
+        SignUpView(customer: CustomerModel.init(id: "", email: "", firstName: "", lastName: "", passwordHash: "", country: "", gender: "", dateOfBirth: Date()))
     }
 }
 
@@ -213,5 +222,3 @@ struct CheckboxToggleStyle: ToggleStyle {
         }
     }
 }
-
-
