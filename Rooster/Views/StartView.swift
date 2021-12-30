@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StartView: View {
     @State var showSignUp = false
+    @State var showSignIn = false
     
     var body: some View {
             ZStack {
@@ -16,6 +17,7 @@ struct StartView: View {
 
                 VStack {
                     HStack {
+                        // Logo
                         Image("Icon")
                             .offset(x: -95, y: 15)
                             .scaleEffect(CGSize(width: 0.8, height: 0.8))
@@ -35,8 +37,9 @@ struct StartView: View {
                     ScreenText()
                     
                     VStack {
+                        // On click SignInView shows
                         Button(action: {
-                            goHome()
+                            self.showSignIn.toggle()
                         }, label: {
                             Text("Sign In")
                                 .frame(width: 330, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -46,7 +49,10 @@ struct StartView: View {
                                 .padding()
                                 .background(Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)))
                         })
-                        
+                        .sheet(isPresented: $showSignIn, content: {
+                            SignInView(user: CustomerModel.init(id: "", email: "", firstName: "", lastName: "", passwordHash: "", country: "", gender: "", dateOfBirth: Date()))
+                        })
+                        // On click SignUpView shows
                         Button(action: {
                             self.showSignUp.toggle()
                         }, label: {
@@ -76,6 +82,7 @@ struct StartView_Previews: PreviewProvider {
     }
 }
 
+// Displays gif as background
 struct GifImage: View{
     var body: some View{
         return
@@ -90,6 +97,7 @@ struct GifImage: View{
     }
 }
 
+// Displays text
 struct ScreenText: View{
     var body: some View{
         GeometryReader { geometry in
@@ -102,6 +110,7 @@ struct ScreenText: View{
     }
 }
 
+// Function to view SignInView
 func goHome() {
     if let window = UIApplication.shared.windows.first {
         window.rootViewController = UIHostingController(rootView: SignInView(user: CustomerModel.init(id: "", email: "", firstName: "", lastName: "", passwordHash: "", country: "", gender: "", dateOfBirth: Date())))
