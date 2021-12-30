@@ -26,6 +26,7 @@
 		6C6C1DE1277B734300BD509F /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6C1DE0277B734300BD509F /* SignInViewModel.swift */; };
 		6C6C1DE8277BAB9B00BD509F /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6C1DE7277BAB9B00BD509F /* StoreView.swift */; };
 		6C6C1DEA277BABAD00BD509F /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6C1DE9277BABAD00BD509F /* StoreViewModel.swift */; };
+		6C6C1DEC277CB4A900BD509F /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6C1DEB277CB4A900BD509F /* UserViewModel.swift */; };
 		6CC57A3127763F0B00E7290A /* StartAnimatedBgView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC57A3027763F0B00E7290A /* StartAnimatedBgView.swift */; };
 		6CECE92927755C8900B75253 /* RoosterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CECE92827755C8900B75253 /* RoosterApp.swift */; };
 		6CECE92B27755C8900B75253 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CECE92A27755C8900B75253 /* ContentView.swift */; };
@@ -53,6 +54,7 @@
 		6C6C1DE0277B734300BD509F /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		6C6C1DE7277BAB9B00BD509F /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		6C6C1DE9277BABAD00BD509F /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
+		6C6C1DEB277CB4A900BD509F /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		6CC57A3027763F0B00E7290A /* StartAnimatedBgView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartAnimatedBgView.swift; sourceTree = "<group>"; };
 		6CECE92527755C8900B75253 /* Rooster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rooster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CECE92827755C8900B75253 /* RoosterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoosterApp.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		6C6C1DDD277B71A600BD509F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				6C6C1DEB277CB4A900BD509F /* UserViewModel.swift */,
 				6C6C1DDE277B71DC00BD509F /* SignUpViewModel.swift */,
 				6C6C1DE0277B734300BD509F /* SignInViewModel.swift */,
 				6C6C1DE9277BABAD00BD509F /* StoreViewModel.swift */,
@@ -330,6 +333,7 @@
 				6C6C1DEA277BABAD00BD509F /* StoreViewModel.swift in Sources */,
 				6CECE92B27755C8900B75253 /* ContentView.swift in Sources */,
 				6C6C1DE8277BAB9B00BD509F /* StoreView.swift in Sources */,
+				6C6C1DEC277CB4A900BD509F /* UserViewModel.swift in Sources */,
 				6C6C1DB32776734D00BD509F /* SignUpView.swift in Sources */,
 				6CECE93C277566BC00B75253 /* FavoriteView.swift in Sources */,
 				6CECE92927755C8900B75253 /* RoosterApp.swift in Sources */,
