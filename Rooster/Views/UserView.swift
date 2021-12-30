@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct UserView: View {
+    
+    @ObservedObject var viewModel = UserViewModel()
+    
     var body: some View {
         NavigationView {
             VStack {
-                Text("User")
+                Text("Text")
             }
-            .navigationTitle("Username")
+            .navigationTitle(viewModel.email ?? "Username")
         }
     }
 }
