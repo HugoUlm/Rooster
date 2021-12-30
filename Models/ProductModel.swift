@@ -12,5 +12,6 @@ struct ProductModel {
     var brand: String
     var model: String
     var price: Int
-    var size: Int
+    var sizes: [Int]
+    var image: String
 }
