@@ -15,6 +15,18 @@ struct SignInView: View {
     var body: some View {
         NavigationView {
             VStack {
+                HStack {
+                    // Logo
+                    Image("Icon")
+                        .offset(x: -95, y: 15)
+                        .scaleEffect(CGSize(width: 0.8, height: 0.8))
+                    Text("Rooster")
+                        .font(.system(size: 35, weight: .semibold))
+                        .foregroundColor(.black)
+                        .offset(x: -150, y: 0)
+                }
+                .offset(x: 70, y: 50)
+
                 // Input for email
                 TextField("Email", text: $user.email)
                     .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -22,6 +34,7 @@ struct SignInView: View {
                     .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                     .background(Color(UIColor.white))
                     .disableAutocorrection(true)
+                    .autocapitalization(.none)
                 
                 // Input for password
                 SecureField("Password", text: $user.passwordHash)
@@ -45,7 +58,7 @@ struct SignInView: View {
                     }
                 }, label: {
                     Text("Sign In")
-                        .frame(width: 310, height: 30)
+                        .frame(width: 320, height: 30)
                         .font(.system(size: 26))
                         .multilineTextAlignment(.center)
                 })
@@ -54,7 +67,7 @@ struct SignInView: View {
                 .background(Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)))
                 .offset(x: 0, y: 20)
             }
-            .navigationTitle("Sign In")
+
             .offset(x: 0, y: -200)
         }
         .onAppear {
