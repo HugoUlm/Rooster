@@ -22,8 +22,8 @@ struct SignUpView: View {
     
     var body: some View {
             NavigationView {
-
-                        VStack {
+                VStack {
+                        Group {
                             // Input for email
                             TextField("Email", text: $customer.email)
                                 .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -31,6 +31,19 @@ struct SignUpView: View {
                                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                 .background(Color(UIColor.white))
                                 .disableAutocorrection(true)
+                                .autocapitalization(.none)
+                            
+                            // Checks if email is valid
+                            if customer.email.count > 0 && !viewModel.emailValidator(customer.email) {
+                                
+                                Label(
+                                    title: { Text("Enter a valid email") },
+                                    icon: { Image(systemName: "xmark.octagon") }
+                                )
+                                .foregroundColor(.red)
+                                .offset(x: 0, y: -5)
+                            }
+
                             // Input for password
                             SecureField("Password", text: $customer.passwordHash)
                                 .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -38,6 +51,17 @@ struct SignUpView: View {
                                 .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                 .background(Color(UIColor.white))
                                 .offset(x: 0, y: 10)
+                            
+                            // Checks password is less than 6 but more than 0
+                            if  customer.passwordHash.count < 6 && customer.passwordHash.count > 0 {
+                                Label(
+                                    title: { Text("Password needs to be atleast 6 chars") },
+                                    icon: { Image(systemName: "xmark.octagon") }
+                                )
+                                .foregroundColor(.red)
+                                .offset(x: 0, y: 5)
+                            }
+                            
                             // Input for first name
                             TextField("First name", text: $customer.firstName)
                                 .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -46,6 +70,7 @@ struct SignUpView: View {
                                 .background(Color(UIColor.white))
                                 .disableAutocorrection(true)
                                 .offset(x: 0, y: 20)
+                            
                             // Input for last name
                             TextField("Last name", text: $customer.lastName)
                                 .frame(width: 350, height: 50, alignment: .center)
@@ -54,6 +79,7 @@ struct SignUpView: View {
                                 .background(Color(UIColor.white))
                                 .disableAutocorrection(true)
                                 .offset(x: 0, y: 30)
+                            
                             // Dropdown for gender
                             Menu {
                                 ForEach(viewModel.genders, id: \.self) { gender in
@@ -83,6 +109,7 @@ struct SignUpView: View {
                                 .frame(width: 350, height: 50, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                             }
                             .offset(x: 0, y: 40)
+                            
                             // Dropdown for country
                             Menu {
                                 ForEach(viewModel.countries, id: \.self) { country in
@@ -111,6 +138,7 @@ struct SignUpView: View {
                                 .frame(width: 350, height: 50, alignment: .center)
                             }
                             .offset(x: 0, y: 50)
+                            
                             // Input for Date of Birth
                             DatePicker("Date of Birth", selection: $customer.dateOfBirth, displayedComponents: [.date])
                                 .frame(width: 317, height: 25, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -129,74 +157,67 @@ struct SignUpView: View {
                             .font(.system(size: 24))
                             .offset(x: 0, y: 70)
                             
-                            // Submit button
-                            VStack {
-                                Button(action: {
-                                    
-                                    // Check if none of models props are null
-                                    if modelStateIsValid {
-                                        if customer.passwordHash.count < 6 {
-                                            return
-                                        }
-                                        else {
-                                            viewModel.addCustomer(customer: customer)
-                                            goHome()
-                                        }
-                                    }
-                                }, label: {
-                                    Text("Register")
-                                        .frame(width: 310, height: 30)
-                                        .font(.system(size: 26))
-                                        .multilineTextAlignment(.center)
-                                })
-                                .disabled(!modelStateIsValid)
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(buttonColorBackGround)
-                            }
-                            .offset(x: 0, y: 80)
+
                         }
-
-
-                        .offset(x: 0, y: -50)
-                        .background(Color(UIColor.white))
-                        .navigationTitle("Register")
-                        // Following code will make the keyboard not overlap textfield
-                        .offset(y: -self.keyboardOffset)
-                                .onAppear {
-                                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification,
-                                                        object: nil,
-                                                        queue: .main) { (notification) in
-                                                        NotificationCenter.default.addObserver(
-                                                        forName: UIResponder.keyboardDidShowNotification,
-                                                        object: nil,
-                                                        queue: .main) { (notification) in
-                                                        guard let userInfo = notification.userInfo,
-                                                                                        let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-                                                                                    
-                                                        self.keyboardOffset = keyboardRect.height
-                                                        }
-                                                                            
-                                                        NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification,
-                                                                                               object: nil,
-                                                                                                    queue: .main) { (notification) in
-                                                        self.keyboardOffset = 0
-                                                        }
+                        
+                    Group {
+                        // Submit button
+                            Button(action: {
+                                
+                                // Check if none of textfields are null
+                                if modelStateIsValid {
+                                    viewModel.addCustomer(customer: customer)
+                                    goHome()
+                                }
+                            }, label: {
+                                Text("Register")
+                                    .frame(width: 310, height: 30)
+                                    .font(.system(size: 26))
+                                    .multilineTextAlignment(.center)
+                            })
+                            .disabled(!modelStateIsValid)
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(buttonColorBackGround)
+                    }
+                    .offset(x: 0, y: 90)
                 }
-            }
+                .offset(x: 0, y: -60)
+                .background(Color(UIColor.white))
+                .navigationTitle("Register")
+                
+                // Following code will make the keyboard not overlap textfield
+                .offset(y: -self.keyboardOffset)
+                        .onAppear {
+                            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification,
+                                                object: nil,
+                                                queue: .main) { (notification) in
+                                                NotificationCenter.default.addObserver(
+                                                forName: UIResponder.keyboardDidShowNotification,
+                                                object: nil,
+                                                queue: .main) { (notification) in
+                                                guard let userInfo = notification.userInfo,
+                                                                                let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+                                                                            
+                                                self.keyboardOffset = keyboardRect.height
+                                                }
+                                                                    
+                                                NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification,
+                                                                                       object: nil,
+                                                                                            queue: .main) { (notification) in
+                                                self.keyboardOffset = 0
+                                                }
+                    }
+                }
         }
     }
     // Checks if customer props are not null
     var modelStateIsValid: Bool {
-        return !customer.email.isEmpty && !customer.firstName.isEmpty && !customer.lastName.isEmpty && !customer.passwordHash.isEmpty && !customer.gender.isEmpty && !customer.country.isEmpty
+        return !customer.email.isEmpty && !customer.firstName.isEmpty && !customer.lastName.isEmpty && !customer.passwordHash.isEmpty && !customer.gender.isEmpty && !customer.country.isEmpty && customer.passwordHash.count > 6
     }
     // Changes color of button background depending on modelStateIsValid
     var buttonColorBackGround: Color {
         return modelStateIsValid ? Color(UIColor(red: 0.451, green: 0, blue: 0.6275, alpha: 1.0)) : Color(UIColor.lightGray)
-    }
-    // Changes color of button text depending on modelStateIsValid
-    var buttonColorForeGround: Color {
-        return modelStateIsValid ? Color.white : Color.black
     }
 }
 
