@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @State var showStore = false
+    
     var body: some View {
         
         NavigationView {
@@ -39,7 +42,9 @@ struct HomeView: View {
                             .padding()
                             .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: 2)
                             .offset(x: -105, y: 235)
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        Button(action: {
+                            self.showStore.toggle()
+                        }, label: {
                             Text("Shop")
                                 .frame(width: 90, height: 20, alignment: .center)
                                 .padding()
@@ -47,6 +52,9 @@ struct HomeView: View {
                                 .foregroundColor(.white)
                         })
                         .offset(x: -110, y: 230)
+                        .sheet(isPresented: $showStore, content: {
+                            StoreView()
+                        })
                     }
 
                     ZStack {
